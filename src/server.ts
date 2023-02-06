@@ -64,15 +64,14 @@ export default class Server {
                     res.status(401).json({error: check.result})
                 } else {
                     let a: any
-                   try{
-                       a = await AccountSchema.findOne({uid: uid})
-                   }
-                   catch (e) {
-                       res.status(401).json({
-                           error: "cannot connect to the database"
-                       })
-                       return
-                   }
+                    try {
+                        a = await AccountSchema.findOne({uid: uid})
+                    } catch (e) {
+                        res.status(401).json({
+                            error: "cannot connect to the database"
+                        })
+                        return
+                    }
                     if (a) {
                         res.status(401).json({
                             error: `account with uid ${uid} already exist`
@@ -107,30 +106,37 @@ export default class Server {
         app.get('/wallet', async (req: Request, res: Response) => {
             const uid = req.body.uid;
             const secret = req.body.secret;
+            console.log("###########: ")
+            console.log(req.body)
             let check = this.check(uid, secret)
             if (!check.result) {
                 res.status(401).json({error: check.result})
             } else {
                 let act: any;
-                try{
+                try {
                     act = await AccountSchema.findOne({uid: uid})
-                }
-                catch (e) {
-                    res.status(401).json({
+                } catch (e) {
+                    res.status(404).json({
                         error: "cannot connect to the database"
                     })
                     return
                 }
                 if (!act) {
                     res.status(404).json({
-                            error: `not account found for the user with the uid ${uid}. May be the uid or the secret is incorrect`
+                            error: `not account found for the user with the uid ${uid}. incorrect uid`
                         }
                     )
                 } else {
                     const eth = new Eth(Eth.givenProvider);
-                    let ethAccount = eth.accounts.decrypt(act.encryptedValue, secret);
-                    console.log(ethAccount)
-                    res.status(200).json({privateKey: ethAccount.priviteKey})
+                    try {
+                        let ethAccount = eth.accounts.decrypt(act.encryptedValue, secret);
+                        console.log(ethAccount)
+                        res.status(200).json({privateKey: ethAccount.priviteKey})
+
+                    } catch (e) {
+                        res.status(404).json({error: `not account found for the user with the uid ${uid}. incorrect secret`})
+                        return
+                    }
                 }
             }
             //todo Validation of the inputs

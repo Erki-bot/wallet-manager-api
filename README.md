@@ -1,9 +1,8 @@
 # Wallet manager API
 ## Script to start the server
-
-## `npm run dev`
-
- After running this script, the server start on the port `8081`
+## For the first time, run  `npm install` to install the dependencies
+## Run `npm run dev` to start the server
+ After running this script, the server start on the port __`8081`__
 ## Endpoints
 * ### `post /wallet`
   ### Requirement

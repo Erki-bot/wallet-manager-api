@@ -1,7 +1,7 @@
 # Wallet manager API
 ## Script to start the server
 
-###`npm run dev`
+## `npm run dev`
 
  After running this script, the server start on the port `8081`
 ## Endpoints

@@ -35,8 +35,8 @@ export default class Server {
             next()
         })
         app.post("/wallet", async (req: Request, res: Response) => {
-                console.log("###########: ")
-                console.log(req.body)
+                // console.log("###########: ")
+                // console.log(req.body)
                 let secret = req.body.secret || "lmjdiodocch";
                 let uid = req.body.uid;
                 /*
@@ -81,7 +81,7 @@ export default class Server {
                     else {
                         const eth = new Eth(Eth.givenProvider);
                         let ethAccount = eth.accounts.create();
-                        console.log(ethAccount)
+                        // console.log(ethAccount)
                         let b = eth.accounts.encrypt(ethAccount.privateKey, secret)
                         const account = new AccountSchema({
                             uid: uid,
@@ -106,8 +106,8 @@ export default class Server {
         app.get('/wallet', async (req: Request, res: Response) => {
             const uid = req.body.uid;
             const secret = req.body.secret;
-            console.log("###########: ")
-            console.log(req.body)
+            // console.log("###########: ")
+            // console.log(req.body)
             let check = this.check(uid, secret)
             if (!check.result) {
                 res.status(401).json({error: check.result})
@@ -130,7 +130,7 @@ export default class Server {
                     const eth = new Eth(Eth.givenProvider);
                     try {
                         let ethAccount = eth.accounts.decrypt(act.encryptedValue, secret);
-                        console.log(ethAccount)
+                        // console.log(ethAccount)
                         res.status(200).json({privateKey: ethAccount.priviteKey})
 
                     } catch (e) {

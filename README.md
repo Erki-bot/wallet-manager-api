@@ -5,11 +5,11 @@
 
  After running this script, the server start on the port `8081`
 ## Endpoints
-* ###`post /wallet`
-  ###Requirement
+* ### `post /wallet`
+  ### Requirement
   * ### uid : 32 digit alphanumeric string
   * ### secret : alphanumeric string
 * ### `get /wallet`
-  ###Requirement
+  ### Requirement
     * ### uid : 32 digit alphanumeric string
     * ### secret : alphanumeric string
